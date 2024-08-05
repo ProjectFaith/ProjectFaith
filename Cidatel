@@ -1,0 +1,50 @@
+import psycopg2 as psycopg2
+import cryptography.fernet as fernet
+# Generate a Fernet key
+key = fernet.fernet.generate_key()
+# Connect to the database
+conn = psycopg2.connect(
+host='localhost', database='citadel', user='postgres', password='my_password' )
+# Create a cursor object
+cursor = conn.cursor()
+# Create the users table if it does not already exist
+cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+id SERIAL PRIMARY KEY, username VARCHAR(255) UNIQUE NOT NULL, password VARCHAR(255) NOT NULL, two_fa_method VARCHAR(255)
+)''')
+# Define the encrypt and decrypt functions
+def encrypt(data):
+return fernet.Fernet(key).encrypt(data.encode())
+def decrypt(data):
+return fernet.Fernet(key).decrypt(data).decode()
+# Define the register function
+def register(username, password, two_fa_method):
+encrypted_password = encrypt(password)
+cursor.execute("INSERT INTO users (username, password, two_fa_method) VALUES (%s, %s, %s)", (username, encrypted_password, two_fa_method))
+conn.commit()
+# Define the login function
+def login(username, password, two_fa_code):
+encrypted_password = encrypt(password)
+cursor.execute("SELECT password, two_fa_method FROM users WHERE username = %s", (username,))
+stored_password, two_fa_method = cursor.fetchone()
+if encrypted_password == stored_password:
+if two_fa_method == 'email':
+# Send a one-time code to the user's email address
+# Prompt the user to enter the one-time code
+# Verify the one-time code
+pass
+elif two_fa_method == 'phone':
+# Send a one-time code to the user's phone number
+
+CIDATEL
+
+# Prompt the user to enter the one-time code
+# Verify the one-time code
+pass
+else:
+# The user does not have 2FA enabled
+pass
+return True
+else:
+return False
+# Close the database connection
+conn.close()
