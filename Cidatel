@@ -4,7 +4,7 @@ import cryptography.fernet as fernet
 key = fernet.fernet.generate_key()
 # Connect to the database
 conn = psycopg2.connect(
-host='localhost', database='citadel', user='postgres', password='my_password' )
+host='127.0.0.1', dbname='postgres', user='digital_bank_db', password='73455@Projects')
 # Create a cursor object
 cursor = conn.cursor()
 # Create the users table if it does not already exist
