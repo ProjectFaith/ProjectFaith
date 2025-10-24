@@ -1,6 +1,3 @@
-Sorry i'm good.
-I dom't need anyone.
-Just to bother.
-Be yourself.
-Don't tag me, never without my permission '' but I'll never give it.
-Do your projects alone, you'll succed.
+Experienced leader in technology and operations with a passion for innovation and strategic growth.
+Committed to driving efficiency and fostering collaboration within teams to achieve organizational goals.
+Always eager to embrace new challenges and explore opportunities for improvement.
